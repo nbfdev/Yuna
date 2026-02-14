@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yuna AI - ผู้ช่วย AI อัจฉริยะ พร้อมระบบเก็บประวัติสนทนาและระบบตัวตน">
+    <title>Yuna AI - Chat Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Yuna AI</span>
+            </div>
+            <button class="btn-icon" id="newChatBtn" title="สร้างแชทใหม่">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="sidebar-sessions" id="sessionList">
+            <!-- Sessions render here -->
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="sidebar-btn" id="exportBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Export ข้อมูลเทรน AI</span>
+            </button>
+            <button class="sidebar-btn" id="settingsBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                </svg>
+                <span>ตั้งค่า</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile sidebar toggle -->
+    <button class="mobile-toggle" id="mobileToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+
+    <!-- Main Chat Area -->
+    <main class="chat-main">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-avatar">
+                <div class="avatar-glow"></div>
+                <div class="avatar-circle">
+                    <span>Y</span>
+                </div>
+            </div>
+            <h1 class="welcome-title">สวัสดีค่ะ ฉันชื่อ <span class="gradient-text">Yuna</span></h1>
+            <p class="welcome-subtitle">ผู้ช่วย AI อัจฉริยะ พร้อมช่วยเหลือคุณทุกเรื่อง</p>
+            <div class="welcome-suggestions">
+                <button class="suggestion-card" data-prompt="ช่วยอธิบายเกี่ยวกับ AI ให้หน่อย">
+                    <div class="suggestion-icon">🤖</div>
+                    <span>เรียนรู้เกี่ยวกับ AI</span>
+                </button>
+                <button class="suggestion-card" data-prompt="ช่วยเขียนโค้ด Python เบื้องต้นให้หน่อย">
+                    <div class="suggestion-icon">💻</div>
+                    <span>ช่วยเขียนโค้ด</span>
+                </button>
+                <button class="suggestion-card" data-prompt="ช่วยแนะนำไอเดียสำหรับโปรเจกต์ใหม่">
+                    <div class="suggestion-icon">💡</div>
+                    <span>ไอเดียโปรเจกต์</span>
+                </button>
+                <button class="suggestion-card" data-prompt="ช่วยแปลภาษาอังกฤษเป็นไทยให้หน่อย">
+                    <div class="suggestion-icon">🌐</div>
+                    <span>แปลภาษา</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages render here -->
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-avatar">Y</div>
+            <div class="typing-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <span class="typing-text">Yuna กำลังพิมพ์...</span>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <div class="input-container">
+                <textarea id="messageInput" placeholder="พิมพ์ข้อความถึง Yuna..." rows="1"></textarea>
+                <button class="send-btn" id="sendBtn" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="input-disclaimer">Yuna AI อาจให้ข้อมูลที่ไม่ถูกต้อง กรุณาตรวจสอบข้อมูลสำคัญ</p>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>⚙️ ตั้งค่า</h2>
+                <button class="btn-icon modal-close" id="closeSettings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- API Key Section -->
+                <div class="settings-section">
+                    <h3>🔑 API Key</h3>
+                    <p class="settings-desc">ใส่ Google Gemini API Key (ข้อมูลจะถูกเข้ารหัสเก็บในเบราว์เซอร์)</p>
+                    <div class="input-group">
+                        <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="settings-input">
+                        <button class="btn-small" id="toggleApiKey">👁️</button>
+                    </div>
+                    <button class="btn-primary" id="saveApiKey">บันทึก API Key</button>
+                    <div class="api-status" id="apiStatus"></div>
+                </div>
+
+                <!-- Identity Section -->
+                <div class="settings-section">
+                    <h3>🎭 ระบบตัวตน (Identity)</h3>
+                    <p class="settings-desc">กำหนดบุคลิกและวิธีตอบของ Yuna</p>
+                    <label class="settings-label">ชื่อ AI</label>
+                    <input type="text" id="aiNameInput" value="Yuna" class="settings-input">
+                    <label class="settings-label">System Prompt (บุคลิก)</label>
+                    <textarea id="systemPromptInput" class="settings-textarea" rows="8">คุณชื่อ Yuna เป็นผู้ช่วย AI ที่เป็นมิตร ฉลาด และช่วยเหลือผู้ใช้อย่างเต็มที่ คุณตอบเป็นภาษาไทยเป็นหลัก พูดจาสุภาพ น่ารัก ใช้คำลงท้ายว่า "ค่ะ" หรือ "นะคะ" คุณมีความรู้กว้างขวางและสามารถช่วยได้ทุกเรื่อง ตั้งแต่การเขียนโค้ด การวิเคราะห์ข้อมูล ไปจนถึงการให้คำปรึกษาทั่วไป</textarea>
+                    <button class="btn-primary" id="saveIdentity">บันทึกตัวตน</button>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-section">
+                    <h3>📊 จัดการข้อมูล</h3>
+                    <p class="settings-desc">Export ประวัติสนทนาทั้งหมดสำหรับนำไปเทรน AI</p>
+                    <div class="data-stats" id="dataStats"></div>
+                    <div class="btn-group">
+                        <button class="btn-primary" id="exportAllBtn">📥 Export ทั้งหมด (JSON)</button>
+                        <button class="btn-danger" id="clearAllBtn">🗑️ ลบข้อมูลทั้งหมด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Auth Modal -->
+    <div class="modal-overlay" id="adminAuthModal">
+        <div class="modal modal-small">
+            <div class="modal-header">
+                <h2>🔐 ยืนยันตัวตนแอดมิน</h2>
+                <button class="btn-icon modal-close" id="closeAdminAuth">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="settings-desc">ใส่รหัสผ่านแอดมินเพื่อเข้าถึงการตั้งค่า</p>
+                <input type="password" id="adminPasswordInput" placeholder="รหัสผ่านแอดมิน" class="settings-input">
+                <button class="btn-primary" id="adminLoginBtn" style="margin-top:12px;width:100%">เข้าสู่ระบบ</button>
+                <div class="api-status" id="adminAuthStatus"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- First-time Setup Modal -->
+    <div class="modal-overlay" id="setupModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🚀 ตั้งค่าเริ่มต้น</h2>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h3>🔐 สร้างรหัสผ่านแอดมิน</h3>
+                    <p class="settings-desc">รหัสผ่านนี้จะใช้ป้องกันการเข้าถึง API Key และการตั้งค่า</p>
+                    <input type="password" id="setupPassword" placeholder="สร้างรหัสผ่าน (อย่างน้อย 6 ตัวอักษร)" class="settings-input">
+                    <input type="password" id="setupPasswordConfirm" placeholder="ยืนยันรหัสผ่าน" class="settings-input" style="margin-top:8px">
+                </div>
+                <div class="settings-section">
+                    <h3>🔑 Google Gemini API Key</h3>
+                    <p class="settings-desc">ใส่ API Key ของบริษัท (จะถูกเข้ารหัสเพื่อความปลอดภัย)</p>
+                    <input type="password" id="setupApiKey" placeholder="AIzaSy..." class="settings-input">
+                </div>
+                <button class="btn-primary" id="setupCompleteBtn" style="width:100%;margin-top:16px;padding:14px">✨ เริ่มต้นใช้งาน Yuna</button>
+                <div class="api-status" id="setupStatus"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

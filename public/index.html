@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="แชทกับยูนะ">
+    <title>Yuna — แชท</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ===== Loading Splash Screen ===== -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-avatar-ring">
+                <div class="splash-ring"></div>
+                <div class="splash-ring splash-ring-2"></div>
+                <img src="/images/emotions/happy.png" alt="Yuna" class="splash-avatar-img" />
+            </div>
+            <h1 class="splash-name">Yuna</h1>
+            <p class="splash-tagline">กำลังเตรียมตัว...</p>
+            <div class="splash-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="splash-footer">
+            <span>Developed by NS-Dev</span>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="/images/emotions/happy.png" alt="Yuna" class="logo-profile-img" />
+                </div>
+                <span class="logo-text">Yuna</span>
+            </div>
+            <button class="btn-icon" id="newChatBtn" title="สร้างแชทใหม่">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="sidebar-sessions" id="sessionList">
+            <!-- Sessions render here -->
+        </div>
+
+    </aside>
+
+    <!-- Mobile sidebar toggle -->
+    <button class="mobile-toggle" id="mobileToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+    </button>
+
+    <!-- Main Chat Area -->
+    <main class="chat-main">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-avatar">
+                <div class="avatar-glow"></div>
+                <div class="avatar-circle avatar-circle-img">
+                    <img src="/images/emotions/happy.png" alt="Yuna" class="welcome-profile-img" />
+                </div>
+            </div>
+            <div class="online-status">
+                <span class="online-dot"></span>
+                <span>ออนไลน์อยู่ตอนนี้</span>
+            </div>
+            <h1 class="welcome-title">สวัสดีค่ะ ฉันชื่อ <span class="gradient-text">Yuna</span></h1>
+            <p class="welcome-subtitle">พร้อมคุยกับคุณทุกเรื่องเลยค่ะ 💕</p>
+            <div class="welcome-suggestions">
+                <button class="suggestion-card" data-prompt="สวัสดีค่ะ Yuna วันนี้เป็นไงบ้าง">
+                    <div class="suggestion-icon">👋</div>
+                    <span>ทักทาย Yuna</span>
+                </button>
+                <button class="suggestion-card" data-prompt="เล่าให้ฟังหน่อยว่าชอบอะไรบ้าง">
+                    <div class="suggestion-icon">💬</div>
+                    <span>มาคุยกัน</span>
+                </button>
+                <button class="suggestion-card" data-prompt="ช่วยให้คำปรึกษาเรื่องหนึ่งหน่อยได้ไหม">
+                    <div class="suggestion-icon">🤝</div>
+                    <span>ขอคำปรึกษา</span>
+                </button>
+                <button class="suggestion-card" data-prompt="เล่าเรื่องสนุก ๆ ให้ฟังหน่อยสิ">
+                    <div class="suggestion-icon">✨</div>
+                    <span>เล่าเรื่องสนุก</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages render here -->
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-avatar">
+                <img src="/images/emotions/thinking.png" alt="Yuna" class="typing-profile-img" />
+            </div>
+            <div class="typing-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <span class="typing-text">Yuna กำลังพิมพ์...</span>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <div class="input-container">
+                <textarea id="messageInput" placeholder="พิมพ์ข้อความถึง Yuna..." rows="1"></textarea>
+                <button class="send-btn" id="sendBtn" disabled>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Splash screen → fade out after 2.5s
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                if (splash) {
+                    splash.classList.add('hidden');
+                    setTimeout(() => splash.remove(), 700);
+                }
+            }, 2500);
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>
