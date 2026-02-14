@@ -817,9 +817,11 @@ body {
 
 /* ===== Input Area ===== */
 .chat-input-area {
-    padding: 16px 20px;
+    padding: 12px 20px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     border-top: 1px solid var(--border-color);
     background: var(--bg-primary);
+    flex-shrink: 0;
 }
 
 .input-container {
@@ -1275,5 +1277,35 @@ body {
     .modal {
         width: 95%;
         max-height: 90vh;
+    }
+
+    .chat-main {
+        height: 100dvh;
+    }
+
+    .chat-input-area {
+        padding: 10px 12px;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom, 8px));
+    }
+
+    .input-container {
+        padding: 2px 2px 2px 12px;
+    }
+
+    .input-container textarea {
+        font-size: 1rem;
+    }
+
+    .chat-messages {
+        padding: 12px;
+    }
+
+    .message {
+        padding: 10px 0;
+    }
+
+    .emotion-chat-img {
+        width: 90px;
+        height: 90px;
     }
 }
